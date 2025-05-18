@@ -19,16 +19,19 @@ The goal of this project is to combine learning outcomes gained from the previou
 
 App's Data Source
 
-The type of data source in this app project is the 3rd-Party API data source. They are included below with links to them.
+The core app data comes from a 3rd-Party API, so the type of data source in this app project is the 3rd-Party API data source. They are provided by Google and are included below with links to them.
 
-1. Google Maps Geocoding API - https://developers.google.com/maps/documentation/geocoding?_gl=1*1p3whis*_up*MQ..*_ga*MTcyMTk0MzQ3MC4xNzQ3NTg5MzMy*_ga_NRWSTWS78N*czE3NDc1ODkzMzIkbzEkZzEkdDE3NDc1ODkzMzMkajAkbDAkaDA.
-2. Google Maps Places API - https://developers.google.com/maps/documentation/places/android-sdk/overview?_gl=1*d30lze*_up*MQ..*_ga*OTYwNDAxMjE4LjE3NDc1ODk1MTE.*_ga_NRWSTWS78N*czE3NDc1ODk1MTEkbzEkZzEkdDE3NDc1ODk1MzEkajAkbDAkaDA.&hl=en
+1. Google Maps Geocoding API - https://developers.google.com/maps/documentation/geocoding
+2. Google Maps Places API - https://developers.google.com/maps/documentation/places/web-service/overview
 3. Google Maps Directions API - https://developers.google.com/maps/documentation/directions/overview
 4. Google Maps Distance Matrix API - https://developers.google.com/maps/documentation/distance-matrix/overview
 
 
 
 Features
+
+
+Features By Ajiri
 
 
 1. Users can see their current location on the rendered map.
