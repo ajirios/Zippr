@@ -47,3 +47,11 @@ Features By Edwin
 2:Users can select from a list of driving options for their vehicle.
 3:Users can see real-time changes of driving options as drivers change their location. 
 4:Users can confirm their pickup location and price before their ride order is placed.
+
+
+Features By Piyush 
+
+1. Users can tap on a bottom tab navigation bar to access and view their favorite places. 
+2. Users can tap on a bottom tab navigation bar to access and view their rides.
+3. Users can tap on a bottom tab navigation bar to access and view their chats.
+4. Users can tap on a bottom tab navigation bar to access and view their profile.
