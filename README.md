@@ -19,7 +19,7 @@ The goal of this project is to combine learning outcomes gained from the previou
 
 App's Data Source
 
-The core app data comes from a 3rd-Party API, so the type of data source in this app project is the 3rd-Party API data source. They are provided by Google and are included below with links to them.
+The core app data comes from 3rd-Party API, so the type of data source in this app project is the 3rd-Party API data source. They are provided by Google and are included below with links to them.
 
 1. Google Maps Geocoding API - https://developers.google.com/maps/documentation/geocoding
 2. Google Maps Places API - https://developers.google.com/maps/documentation/places/web-service/overview
@@ -37,7 +37,7 @@ Features By Ajiri
 1. Users can see their current location on the rendered map.
 2. Users can see their current address as the automatic and modifiable pickup address in their ordering app.
 3. Users can search a list of addresses within 100 kilometers of each other.
-4. Users can view a line displaying the route between their pickup and drop-off locations.
+4. Users can view a line displaying the route, and green boards indicating the pickup and drop-off locations.
 
 Features By sandesh
 
