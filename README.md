@@ -3,7 +3,7 @@
 S 1 G 7
 
 Group Members:
-Ajiri Jeffrey Osauzo, GitHub Username: ajirios
+Ajiri Jeffrey Osauzo, GitHub Username: ajirios,
 sandesh prasai, userName: sandeshPra
 
 
@@ -34,7 +34,7 @@ Features
 Features By sandesh
 
 
-1:Users can select their country of residence by flag from a list of countries. 
-2:Users can enter their phone number by country phone code.
-3:Users can allow location permission.
-4:Users can register or login to the app by email and password.
+1: Users can select their country of residence by flag from a list of countries. 
+2: Users can enter their phone number by country phone code.
+3: Users can allow location permission.
+4: Users can register or login to the app by email and password.
