@@ -1,6 +1,7 @@
 
-#Abord
-S 1 G 7
+##Abord
+
+S "1" G "7"
 
 Group Members:
 Ajiri Jeffrey Osauzo, GitHub Username: ajirios,
@@ -9,19 +10,21 @@ Edwin Vettiyadan Antony, userName: edwinantonie
 Piyush Narwal, userName: psn23
 
 
-#Project Name: Abord
+##Project Name: Abord
 
-Project Description:
+##Project Description:
 
 The goal of this project is to combine learning outcomes gained from the previous semester to build a ridesharing app that can respond in real-time to location changes made on the driver side and commuter side.
 
 
 App's Data Source
 
-Google Maps Geocoding API
-Google Maps Places API
-Google Maps Directions API
-Google Maps Distance Matrix API
+The type of data source in this app project is the 3rd-Party API data source. They are included below with links to them.
+
+1. Google Maps Geocoding API - https://developers.google.com/maps/documentation/geocoding?_gl=1*1p3whis*_up*MQ..*_ga*MTcyMTk0MzQ3MC4xNzQ3NTg5MzMy*_ga_NRWSTWS78N*czE3NDc1ODkzMzIkbzEkZzEkdDE3NDc1ODkzMzMkajAkbDAkaDA.
+2. Google Maps Places API - https://developers.google.com/maps/documentation/places/android-sdk/overview?_gl=1*d30lze*_up*MQ..*_ga*OTYwNDAxMjE4LjE3NDc1ODk1MTE.*_ga_NRWSTWS78N*czE3NDc1ODk1MTEkbzEkZzEkdDE3NDc1ODk1MzEkajAkbDAkaDA.&hl=en
+3. Google Maps Directions API - https://developers.google.com/maps/documentation/directions/overview
+4. Google Maps Distance Matrix API - https://developers.google.com/maps/documentation/distance-matrix/overview
 
 
 
