@@ -5,6 +5,7 @@ S 1 G 7
 Group Members:
 Ajiri Jeffrey Osauzo, GitHub Username: ajirios,
 sandesh prasai, userName: sandeshPra
+Edwin Vettiyadan Antony, userName: edwinantonie
 
 
 #Project Name: Abord
@@ -38,3 +39,10 @@ Features By sandesh
 2: Users can enter their phone number by country phone code.
 3: Users can allow location permission.
 4: Users can register or login to the app by email and password.
+
+Features By Edwin
+
+1:Users can select from a list of vehicle types for their ride. 
+2:Users can select from a list of driving options for their vehicle.
+3:Users can see real-time changes of driving options as drivers change their location. 
+4:Users can confirm their pickup location and price before their ride order is placed.
