@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Abord</string>
+    <string name="app_name">Toll</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_pickup">PickupActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
