@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                             updatedLongitude?.let {
                                 displayable += ", $it";
                             }
-                            mainBinding.scoreTextView.text = displayable;
+                            //mainBinding.scoreTextView.text = displayable;
                         }
                     }
                 }
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                             updatedLongitude?.let {
                                 displayable += ", $it";
                             }
-                            mainBinding.scoreTextView.text = displayable;
+                            //mainBinding.scoreTextView.text = displayable;
                         }
                     }
                 }
