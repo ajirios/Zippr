@@ -167,9 +167,6 @@ class MapsFragment : Fragment() {
                 requestNewLocation()
             }
         }
-
-        //val currentLocation = LatLng(latitude, longitude);
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15f));
     }
 
     private fun requestNewLocation() {
@@ -185,8 +182,6 @@ class MapsFragment : Fragment() {
                 val userLatLng = location?.let { LatLng(it.latitude, location.longitude) }
                 if (userLatLng != null) {
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15f))
-                    //latitude = location.latitude;
-                    //longitude = location.longitude;
                 }
             }
         }
