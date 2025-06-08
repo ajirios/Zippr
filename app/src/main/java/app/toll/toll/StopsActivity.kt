@@ -36,6 +36,7 @@ class StopsActivity : AppCompatActivity() {
     }
 
     private lateinit var placesClient: PlacesClient
+    private  lateinit var originInput: AutoCompleteTextView;
     private lateinit var destinationInput: AutoCompleteTextView
     private lateinit var arrayAdapter: ArrayAdapter<String>
 
@@ -67,6 +68,7 @@ class StopsActivity : AppCompatActivity() {
         }
         placesClient = Places.createClient(this)
 
+        originInput = stopsBinding.originEditText;
         destinationInput = stopsBinding.destinationEditText;
         arrayAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line)
         destinationInput.setAdapter(arrayAdapter)
@@ -126,7 +128,7 @@ class StopsActivity : AppCompatActivity() {
         if (originLatitude != null && originLongitude != null) {
             center = LatLng(originLatitude, originLongitude);
         }
-        val bounds = getBounds(center, 150.0);
+        val bounds = getBounds(center, 100.0);
 
         @Suppress("DEPRECATION")
         val request = FindAutocompletePredictionsRequest.builder()
@@ -134,23 +136,29 @@ class StopsActivity : AppCompatActivity() {
             .setSessionToken(token)
             .setQuery(query)
             .setTypeFilter(TypeFilter.ADDRESS) // Only addresses
-            .build()
+            .build();
 
         placesClient.findAutocompletePredictions(request)
             .addOnSuccessListener { response ->
-                val predictions = response.autocompletePredictions
+                val predictions = response.autocompletePredictions;
                 val addresses = predictions.map { it.getFullText(null).toString() }
-                //val latlng: LatLng = predictions[0].placeId
-                arrayAdapter.clear();
-                arrayAdapter.addAll(addresses);
-                arrayAdapter.notifyDataSetChanged()
-                var plcs = mutableListOf<Place>();
+                //arrayAdapter.clear();
+                //arrayAdapter.addAll(addresses);
+                //arrayAdapter.notifyDataSetChanged()
+                val plcs = mutableListOf<Place>();
                 var count = 0;
                 addresses.forEach { i ->
                     val prediction = predictions[count];
                     if (count < 7) {
-                        val arr = i.split(",")
-                        plcs.add(Place(arr[0], "London, ON, Canada", 0.0, 0.0, placeId = prediction.placeId));
+                        val arr = i.split(",");
+                        var cityAddress = "";
+                        for (j in 1..< arr.size) {
+                            cityAddress += (arr[j]).trim();
+                            if (j < arr.size - 1) {
+                                cityAddress += ", ";
+                            }
+                        }
+                        plcs.add(Place(arr[0], cityAddress ?: "London, ON, Canada", 0.0, 0.0, placeId = prediction.placeId));
                     }
                     count++;
                 }
