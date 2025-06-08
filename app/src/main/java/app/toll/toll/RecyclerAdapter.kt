@@ -37,7 +37,6 @@ class RecyclerAdapter(private var dataSet: MutableList<Place>, var activity: App
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.item, viewGroup, false);
 
-        // add the 3 lines of code below to show 5 recycler items in the activity at a time
         val lp = view.getLayoutParams();
         lp.height = viewGroup.measuredHeight/7;
         view.setLayoutParams(lp);
