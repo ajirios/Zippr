@@ -73,7 +73,18 @@ class StopsActivity : AppCompatActivity() {
         arrayAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line)
         destinationInput.setAdapter(arrayAdapter)
 
-        destinationInput.threshold = 2 // Start searching after 1 character
+        originInput.threshold = 3;
+        destinationInput.threshold = 3;
+
+        originInput.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                s?.let {
+                    fetchOriginPredictions(it.toString());
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        });
 
         destinationInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -128,7 +139,7 @@ class StopsActivity : AppCompatActivity() {
         if (originLatitude != null && originLongitude != null) {
             center = LatLng(originLatitude, originLongitude);
         }
-        
+
         val bounds = getBounds(center, 100.0);
 
         @Suppress("DEPRECATION")
@@ -161,6 +172,62 @@ class StopsActivity : AppCompatActivity() {
                     count++;
                 }
                 trip.destinationPlaces.addAll(plcs);
+                recyclerView.adapter?.notifyItemRangeChanged(0,0);
+                recyclerView.adapter?.notifyDataSetChanged();
+            }
+            .addOnFailureListener { exception ->
+                exception.printStackTrace();
+            }
+    }
+
+    private fun fetchOriginPredictions(query: String) {
+        val token = AutocompleteSessionToken.newInstance();
+        trip.originPlaces.clear();
+        recyclerView.adapter?.notifyItemRangeChanged(0,0);
+        recyclerView.adapter?.notifyDataSetChanged();
+
+        var center = LatLng(0.0, 0.0);
+
+        val originLatitude = origin?.latitude;
+        val originLongitude = origin?.longitude;
+        if (originLatitude != null && originLongitude != null) {
+            center = LatLng(originLatitude, originLongitude);
+        }
+        val bounds = getBounds(center, 100.0);
+
+        @Suppress("DEPRECATION")
+        val request = FindAutocompletePredictionsRequest.builder()
+            .setLocationBias(RectangularBounds.newInstance(bounds))
+            .setSessionToken(token)
+            .setQuery(query)
+            .setTypeFilter(TypeFilter.ADDRESS)
+            .build();
+
+        placesClient.findAutocompletePredictions(request)
+            .addOnSuccessListener { response ->
+                val predictions = response.autocompletePredictions;
+                val addresses = predictions.map { it.getFullText(null).toString() }
+                //arrayAdapter.clear();
+                //arrayAdapter.addAll(addresses);
+                //arrayAdapter.notifyDataSetChanged()
+                val plcs = mutableListOf<Place>();
+                var count = 0;
+                addresses.forEach { i ->
+                    val prediction = predictions[count];
+                    if (count < 7) {
+                        val arr = i.split(",");
+                        var cityAddress = "";
+                        for (j in 1..< arr.size) {
+                            cityAddress += (arr[j]).trim();
+                            if (j < arr.size - 1) {
+                                cityAddress += ", ";
+                            }
+                        }
+                        plcs.add(Place(arr[0], cityAddress ?: "London, ON, Canada", 0.0, 0.0, placeId = prediction.placeId));
+                    }
+                    count++;
+                }
+                trip.originPlaces.addAll(plcs);
                 recyclerView.adapter?.notifyItemRangeChanged(0,0);
                 recyclerView.adapter?.notifyDataSetChanged();
             }
