@@ -121,13 +121,14 @@ class StopsActivity : AppCompatActivity() {
         recyclerView.adapter?.notifyItemRangeChanged(0,0);
         recyclerView.adapter?.notifyDataSetChanged();
 
-        var center = LatLng(42.9849, -81.2453) // London, ON
+        var center = LatLng(0.0, 0.0);
 
         val originLatitude = origin?.latitude;
         val originLongitude = origin?.longitude;
         if (originLatitude != null && originLongitude != null) {
             center = LatLng(originLatitude, originLongitude);
         }
+        
         val bounds = getBounds(center, 100.0);
 
         @Suppress("DEPRECATION")
@@ -135,16 +136,13 @@ class StopsActivity : AppCompatActivity() {
             .setLocationBias(RectangularBounds.newInstance(bounds))
             .setSessionToken(token)
             .setQuery(query)
-            .setTypeFilter(TypeFilter.ADDRESS) // Only addresses
+            .setTypeFilter(TypeFilter.ADDRESS)
             .build();
 
         placesClient.findAutocompletePredictions(request)
             .addOnSuccessListener { response ->
                 val predictions = response.autocompletePredictions;
                 val addresses = predictions.map { it.getFullText(null).toString() }
-                //arrayAdapter.clear();
-                //arrayAdapter.addAll(addresses);
-                //arrayAdapter.notifyDataSetChanged()
                 val plcs = mutableListOf<Place>();
                 var count = 0;
                 addresses.forEach { i ->
@@ -158,7 +156,7 @@ class StopsActivity : AppCompatActivity() {
                                 cityAddress += ", ";
                             }
                         }
-                        plcs.add(Place(arr[0], cityAddress ?: "London, ON, Canada", 0.0, 0.0, placeId = prediction.placeId));
+                        plcs.add(Place(arr[0], cityAddress ?: "", 0.0, 0.0, placeId = prediction.placeId));
                     }
                     count++;
                 }
