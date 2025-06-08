@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -29,16 +30,17 @@ class StopsActivity : AppCompatActivity() {
     lateinit var stopsBinding: ActivityStopsBinding;
 
     companion object trip {
+        var activeEditText: String = "DESTINATION";
         var originPlaces: MutableList<Place> = mutableListOf<Place>();
         var destinationPlaces: MutableList<Place> = mutableListOf<Place>();
         var origin: Place? = null;
         var destination: Place? = null;
     }
 
-    private lateinit var placesClient: PlacesClient
+    private lateinit var placesClient: PlacesClient;
     private  lateinit var originInput: AutoCompleteTextView;
-    private lateinit var destinationInput: AutoCompleteTextView
-    private lateinit var arrayAdapter: ArrayAdapter<String>
+    private lateinit var destinationInput: AutoCompleteTextView;
+    private lateinit var arrayAdapter: ArrayAdapter<String>;
 
     private lateinit var recyclerView: RecyclerView;
     private lateinit var viewAdapter: RecyclerView.Adapter<*>;
@@ -57,7 +59,7 @@ class StopsActivity : AppCompatActivity() {
         @Suppress("DEPRECATION")
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
 
-        var origin: String? = intent.getStringExtra("origin");
+        val origin: String? = intent.getStringExtra("origin");
         if (origin != null) {
             stopsBinding.originEditText.setText(origin);
         }
@@ -71,7 +73,7 @@ class StopsActivity : AppCompatActivity() {
         originInput = stopsBinding.originEditText;
         destinationInput = stopsBinding.destinationEditText;
         arrayAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line)
-        destinationInput.setAdapter(arrayAdapter)
+        destinationInput.setAdapter(arrayAdapter);
 
         originInput.threshold = 3;
         destinationInput.threshold = 3;
@@ -89,7 +91,7 @@ class StopsActivity : AppCompatActivity() {
         destinationInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 s?.let {
-                    fetchPredictions(it.toString())
+                    fetchPredictions(it.toString());
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -127,19 +129,19 @@ class StopsActivity : AppCompatActivity() {
     }
 
     private fun fetchPredictions(query: String) {
+        trip.activeEditText = "DESTINATION";
         val token = AutocompleteSessionToken.newInstance();
         trip.destinationPlaces.clear();
         recyclerView.adapter?.notifyItemRangeChanged(0,0);
         recyclerView.adapter?.notifyDataSetChanged();
 
-        var center = LatLng(0.0, 0.0);
+        var center = LatLng(42.9849, -81.2453) // London, ON
 
         val originLatitude = origin?.latitude;
         val originLongitude = origin?.longitude;
         if (originLatitude != null && originLongitude != null) {
             center = LatLng(originLatitude, originLongitude);
         }
-
         val bounds = getBounds(center, 100.0);
 
         @Suppress("DEPRECATION")
@@ -147,13 +149,16 @@ class StopsActivity : AppCompatActivity() {
             .setLocationBias(RectangularBounds.newInstance(bounds))
             .setSessionToken(token)
             .setQuery(query)
-            .setTypeFilter(TypeFilter.ADDRESS)
+            .setTypeFilter(TypeFilter.ADDRESS) // Only addresses
             .build();
 
         placesClient.findAutocompletePredictions(request)
             .addOnSuccessListener { response ->
                 val predictions = response.autocompletePredictions;
                 val addresses = predictions.map { it.getFullText(null).toString() }
+                //arrayAdapter.clear();
+                //arrayAdapter.addAll(addresses);
+                //arrayAdapter.notifyDataSetChanged()
                 val plcs = mutableListOf<Place>();
                 var count = 0;
                 addresses.forEach { i ->
@@ -167,7 +172,7 @@ class StopsActivity : AppCompatActivity() {
                                 cityAddress += ", ";
                             }
                         }
-                        plcs.add(Place(arr[0], cityAddress ?: "", 0.0, 0.0, placeId = prediction.placeId));
+                        plcs.add(Place(arr[0], cityAddress ?: "London, ON, Canada", 0.0, 0.0, placeId = prediction.placeId));
                     }
                     count++;
                 }
@@ -181,8 +186,9 @@ class StopsActivity : AppCompatActivity() {
     }
 
     private fun fetchOriginPredictions(query: String) {
+        trip.activeEditText = "ORIGIN";
         val token = AutocompleteSessionToken.newInstance();
-        trip.originPlaces.clear();
+        trip.destinationPlaces.clear();
         recyclerView.adapter?.notifyItemRangeChanged(0,0);
         recyclerView.adapter?.notifyDataSetChanged();
 
@@ -227,7 +233,7 @@ class StopsActivity : AppCompatActivity() {
                     }
                     count++;
                 }
-                trip.originPlaces.addAll(plcs);
+                trip.destinationPlaces.addAll(plcs);
                 recyclerView.adapter?.notifyItemRangeChanged(0,0);
                 recyclerView.adapter?.notifyDataSetChanged();
             }
