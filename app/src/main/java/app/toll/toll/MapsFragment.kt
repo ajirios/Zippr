@@ -111,7 +111,6 @@ class MapsFragment : Fragment() {
             statusBarColor = Color.TRANSPARENT
         }
     }
-
     private fun checkLocationPermissionAndEnableMap(map: GoogleMap) {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED
