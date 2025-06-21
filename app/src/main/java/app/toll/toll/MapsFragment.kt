@@ -95,14 +95,13 @@ class MapsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState);
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback);
-        
-        spinnerOptions.add("Auto");
+
+        spinnerOptions.add("Automobile");
         spinnerOptions.add("Motorbike");
         spinnerOptions.add("Tricycle");
-        spinnerOptions.add("Truck");
-        spinnerOptions.add("Trailer");
+        spinnerOptions.add("Charter Bus");
         spinnerOptions.add("Bicycle");
-        spinnerOptions.add("Tanker");
+        spinnerOptions.add("Helicopter");
 
         @Suppress("DEPRECATION")
         requireActivity().window.apply {
