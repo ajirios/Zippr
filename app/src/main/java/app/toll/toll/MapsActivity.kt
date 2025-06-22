@@ -334,37 +334,39 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return destinationTime
     }
 
+    You can change this function in vscode:  
+
     private fun fetchAndDrawRoute(origin: LatLng, destination: LatLng) {
-        var durationComputed = 3 + 1
+        var durationComputed = 3 + 1;
 
-        val url = getDirectionsUrl(origin, destination)
+        val url = getDirectionsUrl(origin, destination);
 
-        Log.d("fetching directions: ", "directions fetching..")
+        Log.d("fetching directions: ", "directions fetching..");
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = URL(url).readText()
-                Log.d("DIRECTIONS_RESPONSE", response)
+                val response = URL(url).readText();
+                Log.d("DIRECTIONS_RESPONSE", response);
 
                 val json = JSONObject(response)
-                val routes = json.getJSONArray("routes")
+                val routes = json.getJSONArray("routes");
                 val status = json.getString("status")
                 Log.d("DIRECTIONS_STATUS", status)
 
                 if (status == "OK") {
-                    val routes = json.getJSONArray("routes")
-                    val leg = routes.getJSONObject(0).getJSONArray("legs").getJSONObject(0)
+                    val routes = json.getJSONArray("routes");
+                    val leg = routes.getJSONObject(0).getJSONArray("legs").getJSONObject(0);
 
                     // Extract duration in seconds, then convert to minutes
-                    val durationInSeconds = leg.getJSONObject("duration").getInt("value")
-                    tripDuration = durationInSeconds / 60
-                    durationComputed = durationComputed + durationInSeconds / 60
+                    val durationInSeconds = leg.getJSONObject("duration").getInt("value");
+                    tripDuration = durationInSeconds / 60;
+                    durationComputed = durationComputed + durationInSeconds / 60;
 
                     // Optional: Extract distance in meters and convert to kilometers
-                    val distanceInMeters = leg.getJSONObject("distance").getInt("value")
-                    tripDistanceKm = distanceInMeters / 1000f
+                    val distanceInMeters = leg.getJSONObject("distance").getInt("value");
+                    tripDistanceKm = distanceInMeters / 1000f;
 
-                    Log.d("DIRECTIONS_DURATION", "Trip duration: $tripDuration minutes, $durationComputed computed")
-                    Log.d("DIRECTIONS_DISTANCE", "Trip distance: $tripDistanceKm km")
+                    Log.d("DIRECTIONS_DURATION", "Trip duration: $tripDuration minutes, $durationComputed computed");
+                    Log.d("DIRECTIONS_DISTANCE", "Trip distance: $tripDistanceKm km");
                     val overviewPolyline = routes.getJSONObject(0)
                         .getJSONObject("overview_polyline")
                         .getString("points")
@@ -386,21 +388,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         }
                     }
 
+
                     withContext(Dispatchers.Main) {
-                        val destinationTime = computeDestinationTime(3 + 1 + tripDuration)
-                        val originMarker = MarkerOptions()
-                            .position(origin)
-                            .icon(createCustomMarkerView(this@MapsActivity, "3 min"))
-                            .anchor(0.5f, 1f)
+                        val waitTime = tripOptions.get(0).waitTime;
 
-                        val destinationMarker = MarkerOptions()
-                            .position(destination)
-                            .icon(createCustomMarkerView(this@MapsActivity, "Arrives at ${destinationTime}"))
-                            .anchor(0.5f, 1f)
+                        val destinationTime = computeDestinationTime(waitTime + 1 + tripDuration);
+                        originMarker = mMap.addMarker(
+                            MarkerOptions()
+                                .position(origin)
+                                .icon(createCustomMarkerView(this@MapsActivity, "$waitTime min"))
+                                .anchor(0.5f, 1f)
+                        )!!
 
-                        mMap.addMarker(originMarker)
-                        mMap.addMarker(destinationMarker)
+                        destinationMarker = mMap.addMarker(
+                            MarkerOptions()
+                                .position(destination)
+                                .icon(createCustomMarkerView(this@MapsActivity, "Arrives at $destinationTime"))
+                                .anchor(0.5f, 1f)
+                        )!!
                     }
+
                 } else {
                     Log.e("DIRECTIONS_API", "API Error: $status")
                 }
