@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.model.MarkerOptions
 
 class TripOptionRecyclerAdapter(private var dataSet: MutableList<TripOption>, var activity: AppCompatActivity): RecyclerView.Adapter<TripOptionRecyclerAdapter.ViewHolder>() {
     private var selectedPosition = 0;
@@ -79,6 +80,33 @@ class TripOptionRecyclerAdapter(private var dataSet: MutableList<TripOption>, va
                     notifyItemChanged(selectedPosition);
                     val button3 = activity.findViewById<Button>(R.id.button3);
                     button3.text = "Select ${dataSet[position].optionName}";
+
+                    val waitTimeText = "${dataSet[position].waitTime} min";
+
+
+                    // ✅ Safely cast activity once
+                    val mapsActivity = activity as? MapsActivity ?: return@setOnClickListener;
+
+                    // ✅ Remove and recreate origin marker with new label
+                    mapsActivity.originMarker.remove()
+                    mapsActivity.originMarker = mapsActivity.mMap.addMarker(
+                        MarkerOptions()
+                            .position(mapsActivity.originMarker.position)
+                            .icon(mapsActivity.createCustomMarkerView(mapsActivity, waitTimeText))
+                            .anchor(0.5f, 1f)
+                    )!!
+
+                    // ✅ Recreate destination marker if needed
+                    val newDestinationTime = mapsActivity.computeDestinationTime(
+                        dataSet[position].waitTime + 1 + mapsActivity.tripDuration
+                    )
+                    mapsActivity.destinationMarker.remove()
+                    mapsActivity.destinationMarker = mapsActivity.mMap.addMarker(
+                        MarkerOptions()
+                            .position(mapsActivity.destinationMarker.position)
+                            .icon(mapsActivity.createCustomMarkerView(mapsActivity, "Arrives at $newDestinationTime"))
+                            .anchor(0.5f, 1f)
+                    )!!
                 }
             }
         }
