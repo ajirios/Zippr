@@ -63,33 +63,6 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             registerUser(firstName, middleName, lastName, email, password);
-
-            val viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-
-            viewModel.isLoading.observe(this) { loading ->
-                //if (loading) showLoadingSpinner() else hideLoadingSpinner()
-            }
-
-            viewModel.error.observe(this) { error ->
-                error?.let {
-                    //showErrorDialog(it)
-                }
-            }
-
-            viewModel.registrationSuccess.observe(this) { success ->
-                //if (success) navigateToHomeScreen()
-            }
-
-            val newUser = User(
-                profile = Profile(
-                    firstName = firstName,
-                    middleName = middleName,
-                    lastName = lastName,
-                    email = email
-                )
-            )
-            viewModel.registerUser(newUser)
-
         }
          
         registerBinding.imageView13.setOnClickListener {
