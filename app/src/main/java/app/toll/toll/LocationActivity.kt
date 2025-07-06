@@ -1,4 +1,4 @@
-package app.toll.toll
+package com.zippr.zippr
 
 import android.content.Intent
 import android.graphics.Color
@@ -6,16 +6,21 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
-import app.toll.toll.Permissions.hasLocationPermission
-import app.toll.toll.Permissions.requestLocationPermission
-import app.toll.toll.databinding.ActivityLocationBinding
+import com.zippr.zippr.Permissions.hasLocationPermission
+import com.zippr.zippr.Permissions.requestLocationPermission
+import com.zippr.zippr.R
+import com.zippr.zippr.databinding.ActivityLocationBinding
 
 class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     lateinit var locationBinding: ActivityLocationBinding;
+
+    var spinnerOptions = mutableListOf<String>("NG", "UK", "CA", "CL", "CN", "US");
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -26,17 +31,22 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
         }
 
 
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.apply {
-                // Makes the status bar completely transparent
-                clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                statusBarColor = Color.TRANSPARENT
+        window?.apply {
+            // Set status bar background to white
+            statusBarColor = android.graphics.Color.WHITE
+
+            // Set light status bar icons (dark text/icons)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
         }
+
+        val adapter = ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, spinnerOptions);
+        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        val spinner = findViewById<Spinner>(R.id.phoneCodeSpinner);
+        if (spinner != null) {
+            spinner.adapter = adapter
+        };
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
@@ -58,7 +68,7 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
     }
 
     fun onClickLocationProceed(view: View) {
-        val intent = Intent(this, NavigationActivity::class.java);
+        val intent = Intent(this, LanguageActivity::class.java);
         startActivity(intent);
     }
 
