@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <size android:width="2dp" />
+    <solid android:color="@color/highway_traffic_sign_green" /> <!-- or use #00FF00 or your own color -->
+</shape>
