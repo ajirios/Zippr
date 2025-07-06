@@ -91,6 +91,10 @@ class RegisterActivity : AppCompatActivity() {
             viewModel.registerUser(newUser)
 
         }
+         
+        registerBinding.imageView13.setOnClickListener {
+            finish();
+        }
     }
 
     private fun registerUser(firstName: String, middleName: String, lastName: String, email: String, password: String) {
