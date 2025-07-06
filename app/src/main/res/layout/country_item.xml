@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_marginHorizontal="3dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/flagImageView"
+            android:layout_width="35dp"
+            android:layout_height="15dp"
+            android:paddingEnd="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="40dp"
+            app:srcCompat="@drawable/location_on_icon" />
+
+        <TextView
+            android:id="@+id/countryNameTextView"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:text="Kenya"
+            android:textColor="#020202"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/phoneCodeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="+254"
+            android:textColor="#A2A2A2"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EEEEEE"
+        android:layout_marginTop="19dp" />
+</LinearLayout>
