@@ -25,42 +25,39 @@ class FavouritesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourites, container, false)
+    ): View {
+        favouritesBinding = FragmentFavouritesBinding.inflate(inflater, container, false)
+        return favouritesBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState)
 
-        viewManager = LinearLayoutManager(requireActivity());
-        viewAdapter = FavouritesRecyclerAdapter(NavigationActivity.addresses.destinations);
-        recyclerView = view.findViewById<RecyclerView>(R.id.favouritesRecyclerView).apply {
-            setHasFixedSize(true);
-            layoutManager = viewManager;
-            adapter = viewAdapter;
+        viewManager = LinearLayoutManager(requireActivity())
+        viewAdapter = FavouritesRecyclerAdapter(NavigationActivity.addresses.destinations)
+        favouritesBinding.favouritesRecyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
         }
 
-        reloadFragment();
+        reloadFragment()
 
-        // Make status bar white with dark content (for Android 6.0+)
         requireActivity().window?.apply {
-            // Set status bar background to white
             statusBarColor = android.graphics.Color.WHITE
-
-            // Set light status bar icons (dark text/icons)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
         }
 
         favouritesBinding.button4.setOnClickListener {
-            val newPlace = Place("303 Adelaide N. St.", "Toronto, ON, Canada", 43.809284, -81.2093883, "");
-            NavigationActivity.addresses.destinations.add(newPlace);
-            viewAdapter.notifyDataSetChanged();
-            reloadFragment();
+            val newPlace = Place("303 Adelaide N. St.", "Toronto, ON, Canada", 43.809284, -81.2093883, "")
+            NavigationActivity.addresses.destinations.add(newPlace)
+            viewAdapter.notifyDataSetChanged()
+            reloadFragment()
         }
     }
+
 
     fun reloadFragment() {
         if (NavigationActivity.addresses.destinations.isEmpty()) {
