@@ -1,4 +1,4 @@
-package app.toll.toll
+package app.zippr.zippr
 
 import android.content.Intent
 import android.os.Build
