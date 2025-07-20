@@ -19,6 +19,10 @@ class NavigationActivity : AppCompatActivity() {
         navigationBinding = ActivityNavigationBinding.inflate(layoutInflater);
         setContentView(navigationBinding.root);
 
+        companion object addresses {
+            var destinations: MutableList<Place> = mutableListOf<Place>();
+        }
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.apply {
