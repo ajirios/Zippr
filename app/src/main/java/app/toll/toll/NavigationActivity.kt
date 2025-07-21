@@ -9,19 +9,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import app.toll.toll.databinding.ActivityNavigationBinding
+import app.toll.toll.model.Contact
 
 class NavigationActivity : AppCompatActivity() {
     lateinit var navigationBinding: ActivityNavigationBinding;
     lateinit var bottomNavigationView: BottomNavigationView;
 
+    companion object addresses {
+        var destinations: MutableList<Place> = mutableListOf<Place>();
+        var rides: MutableList<Order> = mutableListOf<Order>();
+        var messages: MutableList<Contact> = mutableListOf<Contact>();
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         navigationBinding = ActivityNavigationBinding.inflate(layoutInflater);
         setContentView(navigationBinding.root);
-
-        companion object addresses {
-            var destinations: MutableList<Place> = mutableListOf<Place>();
-        }
 
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
