@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:background="#FFFFFF">
+
+    <!-- Profile Picture -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/baseline_person_2_24"
+        android:background="@drawable/rounded_image_background"
+        android:clipToOutline="true" />
+
+    <!-- Chat Details -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
+
+        <!-- Recipient Name -->
+        <TextView
+            android:id="@+id/recipientNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jane Doe"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#000000" />
+
+        <!-- Last Message -->
+        <TextView
+            android:id="@+id/lastMessageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hey, are you coming today?"
+            android:textColor="#777777"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+    </LinearLayout>
+
+    <!-- Last Message Time -->
+    <TextView
+        android:id="@+id/lastMessageTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="4:30 PM"
+        android:textSize="12sp"
+        android:textColor="#999999"
+        android:gravity="top|end"
+        android:layout_gravity="center_vertical" />
+
+</LinearLayout>
