@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="5dp"
+    android:layout_marginVertical="5dp"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Trip Marker Icon -->
+        <ImageView
+            android:id="@+id/tripMarkerImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/baseline_directions_car_24" />
+
+        <!-- Address & Details -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp">
+
+            <!-- Street Address -->
+            <TextView
+                android:id="@+id/tripStreetAddressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="300 Oxford Street"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingVertical="2dp" />
+
+            <!-- City Address -->
+            <TextView
+                android:id="@+id/tripCityAddressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="London, ON, Canada"
+                android:textColor="#888888"
+                android:textSize="14sp"
+                android:paddingVertical="2dp" />
+
+            <!-- Date and Time -->
+            <TextView
+                android:id="@+id/tripDateTimeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thu, July 20 2025 4:30 PM"
+                android:textColor="#555555"
+                android:textSize="13sp"
+                android:paddingVertical="2dp" />
+
+            <!-- Fare Paid -->
+            <TextView
+                android:id="@+id/tripFareTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="$12.50"
+                android:textColor="#4CAF50"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingVertical="2dp" />
+
+        </LinearLayout>
+
+        <!-- Optional Action Icon (e.g. More Details) -->
+        <ImageView
+            android:id="@+id/tripMoreOptionsImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/baseline_more_vert_24" />
+
+    </LinearLayout>
+
+</LinearLayout>
